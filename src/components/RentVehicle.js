@@ -244,6 +244,7 @@ function RentVehicle() {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
+            placeholder="Enter first name"
             required
           />
           {errors.firstName && <p className="error">{errors.firstName}</p>}
@@ -253,6 +254,7 @@ function RentVehicle() {
             type="text"
             name="lastName"
             value={formData.lastName}
+             placeholder="Enter last name"
             onChange={handleChange}
             required
           />
@@ -379,50 +381,61 @@ function RentVehicle() {
       </div>
     </form>
   );
+const PreviewRow = ({ label, value }) => (
+  <tr>
+    <td className="label-cell">{label}</td>
+    <td className="value-cell">{value}</td>
+  </tr>
+);
+const form6Preview = (
+  <form onSubmit={handleSubmit} className="form-preview">
+    <h3 >Preview</h3>
 
-  const form6Preview = (
-    <form onSubmit={handleSubmit}>
-      <div className="step">
-        <h3>Preview</h3>
-        <p>
-          <strong>First Name:</strong> {formData.firstName}
-        </p>
-        <p>
-          <strong>Last Name:</strong> {formData.lastName}
-        </p>
+    <div className="preview-table-container">
+      <table className="preview-table">
+        <tbody>
+          <PreviewRow label="First Name" value={formData.firstName} />
+          <PreviewRow label="Last Name" value={formData.lastName} />
+          <PreviewRow
+            label="Number of Wheels"
+            value={wheels.find((w) => w.id === formData.option)?.count || "N/A"}
+          />
+          <PreviewRow
+            label="Vehicle Type"
+            value={
+              vehicleTypes.find((vt) => vt.id === formData.vehicleTypeId)?.type ||
+              "N/A"
+            }
+          />
+          <PreviewRow
+            label="Vehicle"
+            value={vehicles.find((v) => v.id === formData.model)?.name || "N/A"}
+          />
+          <PreviewRow label="Start Date" value={formData.startDate} />
+          <PreviewRow label="End Date" value={formData.endDate} />
+        </tbody>
+      </table>
+    </div>
 
-        <p>
-          <strong>Number of Wheels:</strong>{" "}
-          {wheels.find((w) => w.id === formData.option)?.count || "N/A"}
-        </p>
+    <div className="form-buttons navigation">
+      <button type="button" onClick={handleBack} >
+        Back
+      </button>
+      <button type="submit" >
+        Submit
+      </button>
+    </div>
+  </form>
+);
 
-        <p>
-          <strong>Vehicle Type:</strong>{" "}
-          {vehicleTypes.find((vt) => vt.id === formData.vehicleTypeId)?.type ||
-            "N/A"}
-        </p>
+// Reusable row
 
-        <p>
-          <strong>Vehicle:</strong>{" "}
-          {vehicles.find((v) => v.id === formData.model)?.name || "N/A"}
-        </p>
 
-        <p>
-          <strong>Start Date:</strong> {formData.startDate}
-        </p>
-        <p>
-          <strong>End Date:</strong> {formData.endDate}
-        </p>
-      </div>
 
-      <div className="navigation">
-        <button type="button" onClick={handleBack}>
-          Back
-        </button>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  );
+// Table row component
+
+
+// PreviewRow component with label on left, value on right
 
   return (
     <div className="form-container">{step < 6 ? form1to5 : form6Preview}</div>
