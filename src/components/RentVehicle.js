@@ -89,11 +89,11 @@ function RentVehicle() {
     e.preventDefault();
 
    
-    if (new Date(formData.startDate) >= new Date(formData.endDate)) {
+    if (new Date(formData.startDate) > new Date(formData.endDate)) {
       return Swal.fire({
         icon: "error",
         title: "Invalid Date Range",
-        text: "Start date must be before end date.",
+        text: "Start date must less than  end date.",
       });
     }
 
